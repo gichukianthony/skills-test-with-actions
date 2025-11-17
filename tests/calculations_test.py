@@ -6,7 +6,8 @@ import os
 import pytest
 
 # Project Modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../src')))
 from calculations import area_of_circle, get_nth_fibonacci   # noqa: E402
 
 
@@ -68,3 +69,17 @@ def test_get_nth_fibonacci_ten():
 
     # Assert
     assert result == 55
+
+
+def test_area_of_circle_negative_radius_raises():
+    """Test that a negative radius raises ValueError."""
+    with pytest.raises(ValueError) as exc:
+        area_of_circle(-1)
+    assert "Radius cannot be negative" in str(exc.value)
+
+
+def test_get_nth_fibonacci_negative_raises():
+    """Test that a negative n raises ValueError."""
+    with pytest.raises(ValueError) as exc:
+        get_nth_fibonacci(-5)
+    assert "n cannot be negative" in str(exc.value)
